@@ -1,22 +1,26 @@
 import React from "react";
 
 const Home: React.FC = () => {
+	const params = {
+		client_id: "4iWebsite",
+		redirect_uri: "http://192.168.4.162:3000/callback",
+		response_type: "code",
+		scope: "equipment",
+		state: "12345",
+	};
+
 	const getLogin = async () => {
 		try {
-			const res = await fetch("http://localhost:5000/api/auth/authorize", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					// redirectUri: "http://localhost:4000/callback",
-					scope: "openid profile email",
-					responseType: "code",
-					client_id: "4iWebsite",
-					localState: "12345",
-				}),
-			});
-			window.location.href = res.url;
+			const response = await fetch(
+				`http://192.168.4.162:5000/api/auth/authorize?client_id=${params.client_id}&scope=${params.scope}l&redirect_uri=${params.redirect_uri}&state=${params.state}&response_type=${params.response_type}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
+				}
+			);
+			window.location.href = response.url;
 		} catch (error) {
 			console.log(error);
 		}

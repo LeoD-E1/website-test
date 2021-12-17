@@ -6,55 +6,49 @@ const Callback: React.FC = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
- 
-  let params = {
-    code: "",
-    state: "",
-    scope: "",
-    client_id: "",
-  }
-
+  let params = getUrlParams(window.location.search);
   let token = localStorage.getItem("token");
-  
-  !isLoading && navigate("/equipment");
 
-  const verifyToken = () => {
+  const verifyToken = async () => {
     if (token) {
       setIsLoading(false);
     }else{
-      getAccessToken();
+      const getToken = await getAccessToken();
+      if(getToken){
+        localStorage.setItem("token", getToken);
+        setIsLoading(false);
+      }
     }
   }
 
+  !isLoading && navigate("/equipment")
+
 	const getAccessToken = async () => {
 		try {
-			const response = await fetch("http://localhost:5000/api/auth/token", {
+			const response = await fetch("http://192.168.4.162:5000/api/auth/token", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					code: params.code,
-					client_id: params.client_id,
-					scope: params.scope,
+					code: params.code,				
 					state: params.state,
 				}),
 			})
       // retorna el token
       const token = await response.json();
+      return token;
       // guardar token en localStorage
-      localStorage.setItem("token", token);
+      // 
+      // !isLoading && navigate("/equipment");
 		} catch (error) {
       console.log(error);
 		}
 	};
 
-
   useEffect(() => {
-    params = getUrlParams(window.location.search);
-    console.log(" params necesarios para obtener el token: ", params)
     verifyToken();
-  }, []);
+  });
 
 	return (
 		<div>

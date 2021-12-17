@@ -1,22 +1,29 @@
 import React, { useState } from "react";
 import { IEquipment } from "../types/types";
 
-const Equipment = () => {
-
-  const [Equipment, setEquipment] = useState<IEquipment[] | null>(null);
+const Equipment: React.FC = () => {
+	const [Equipment, setEquipment] = useState<IEquipment[]>([]);
+	const [load, setLoad] = useState(true);
 
 	const getEquipment = async () => {
+    console.log(Equipment)
 		try {
-			const response = await fetch("http://localhost:6000/equipment", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + localStorage.getItem("token")
-        }
-      });
+			const response = await fetch("http://192.168.4.162:6000/equipment", {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: "Bearer " + localStorage.getItem("token"),
+				},
+			});
+
 			const data = await response.json();
-      console.log("data", data);
-			setEquipment(data);
+			if (typeof data === "object") {
+				setEquipment(data);
+				setLoad(false);
+			} else {
+				console.log("data", data);
+			}
+			return data;
 		} catch (error) {
 			console.log(error);
 		}
@@ -27,15 +34,20 @@ const Equipment = () => {
 			<button onClick={getEquipment}>Get Equipment</button>
 			<h1>Equipments</h1>
 			<h4>request to localhost:6000, a backend protected</h4>
-			{Equipment !== null ? (
-				Equipment?.map((equipment, i) => (
-					<div key={i}>
-						<h3>{equipment.name}</h3>
-						<p>{equipment.description}</p>
-					</div>
-				))
-			) : (
+			{load ? (
 				<p>No equipment</p>
+			) : (
+				Equipment.map((equipment: IEquipment) => {
+					return (
+						<ul key={equipment.name}>
+							<li>
+								<h3>{equipment.name}</h3>
+								<h4>{equipment.description}</h4>
+								<p>{equipment.type}</p>
+							</li>
+						</ul>
+					);
+				})
 			)}
 		</div>
 	);

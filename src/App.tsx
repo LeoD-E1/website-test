@@ -6,6 +6,10 @@ import Callback from "./pages/Callback";
 import Equipment from "./pages/Equipment";
 import Nav from "./components/Nav";
 
+if (process.env.NODE_ENV === "development") {
+	require("dotenv").config();
+}
+
 
 const App: React.FC = () => {
 	return (
