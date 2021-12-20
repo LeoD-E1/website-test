@@ -3,7 +3,7 @@ import React from "react";
 const Home: React.FC = () => {
 	const params = {
 		client_id: "4iWebsite",
-		redirect_uri: "https://192.168.4.162:3000/callback",
+		redirect_uri: "http://192.168.4.162:3000/callback",
 		response_type: "code",
 		scope: "equipment",
 		state: "12345",
