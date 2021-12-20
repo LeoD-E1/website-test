@@ -8,7 +8,7 @@ const Equipment: React.FC = () => {
 	const getEquipment = async () => {
     console.log(Equipment)
 		try {
-			const response = await fetch("http://192.168.4.162:6000/equipment", {
+			const response = await fetch("https://192.168.4.162:6000/equipment", {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",

@@ -25,7 +25,7 @@ const Callback: React.FC = () => {
 
 	const getAccessToken = async () => {
 		try {
-			const response = await fetch("http://192.168.4.162:5000/api/auth/token", {
+			const response = await fetch("https://192.168.4.162:5000/api/auth/token", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
