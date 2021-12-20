@@ -3,7 +3,7 @@ import React from "react";
 const Home: React.FC = () => {
 	const params = {
 		client_id: "4iWebsite",
-		redirect_uri: "http://192.168.4.162:3000/callback",
+		redirect_uri: "https://192.168.4.162:3000/callback",
 		response_type: "code",
 		scope: "equipment",
 		state: "12345",
@@ -12,8 +12,9 @@ const Home: React.FC = () => {
 	const getLogin = async () => {
 		try {
 			const response = await fetch(
-				`http://192.168.4.162:5000/api/auth/authorize?client_id=${params.client_id}&scope=${params.scope}l&redirect_uri=${params.redirect_uri}&state=${params.state}&response_type=${params.response_type}`,
+				`https://192.168.4.162:5000/api/auth/authorize?client_id=${params.client_id}&scope=${params.scope}l&redirect_uri=${params.redirect_uri}&state=${params.state}&response_type=${params.response_type}`,
 				{
+          credentials:"omit",
 					method: "GET",
 					headers: {
 						"Content-Type": "application/x-www-form-urlencoded",
