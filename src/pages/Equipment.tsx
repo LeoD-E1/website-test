@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { IEquipment } from "../types/types";
 
+if (process.env.NODE_ENV === "production") {
+	require("dotenv").config();
+	console.log("Environ", process.env.NODE_ENV);
+}
+
 const Equipment: React.FC = () => {
 	const [Equipment, setEquipment] = useState<IEquipment[]>([]);
 	const [load, setLoad] = useState(true);
 
 	const getEquipment = async () => {
-    console.log(Equipment)
+		console.log(Equipment);
 		try {
-			const response = await fetch("http://192.168.4.162:6000/equipment", {
+			const response = await fetch("http://192.168.4.162:6000/equipment" || process.env.REACT_APP_GET_EQUIPMENT, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
