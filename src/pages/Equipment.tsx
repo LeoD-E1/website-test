@@ -3,7 +3,6 @@ import { IEquipment } from "../types/types";
 
 if (process.env.NODE_ENV === "production") {
 	require("dotenv").config();
-	console.log("Environ", process.env.NODE_ENV);
 }
 
 const Equipment: React.FC = () => {

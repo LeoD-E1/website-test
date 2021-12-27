@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 if (process.env.NODE_ENV === "production") {
   require("dotenv").config();
-  console.log("Environ", process.env.NODE_ENV);
 }
 
 const Callback: React.FC = () => {
