@@ -6,19 +6,15 @@ import Callback from "./pages/Callback";
 import Equipment from "./pages/Equipment";
 import Nav from "./components/Nav";
 
-if (process.env.NODE_ENV === "development") {
-	require("dotenv").config();
-}
-
 
 const App: React.FC = () => {
 	return (
 		<BrowserRouter>
-      <Nav />
+			<Nav />
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route path='/callback' element={<Callback />} />
-        <Route path='/equipment' element={<Equipment />} />
+				<Route path='/equipment' element={<Equipment />} />
 			</Routes>
 		</BrowserRouter>
 	);

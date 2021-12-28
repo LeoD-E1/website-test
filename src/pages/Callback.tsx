@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUrlParams } from "../helpers/getUrlParams";
 import { useNavigate } from "react-router-dom";
-
-if (process.env.NODE_ENV === "production") {
-  require("dotenv").config();
-}
+import config from "../config/config";
 
 const Callback: React.FC = () => {
 
@@ -29,7 +26,7 @@ const Callback: React.FC = () => {
 
 	const getAccessToken = async () => {
 		try {
-			const response = await fetch("https://192.168.4.162:5000/api/auth/token" || process.env.REACT_APP_OAUTH_SERVER_TOKEN, {
+			const response = await fetch(config.oauth.token, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { IEquipment } from "../types/types";
-
-if (process.env.NODE_ENV === "production") {
-	require("dotenv").config();
-}
+import config from "../config/config";
 
 const Equipment: React.FC = () => {
 	const [Equipment, setEquipment] = useState<IEquipment[]>([]);
@@ -12,7 +9,7 @@ const Equipment: React.FC = () => {
 	const getEquipment = async () => {
 		console.log(Equipment);
 		try {
-			const response = await fetch("http://192.168.4.162:6000/equipment" || process.env.REACT_APP_GET_EQUIPMENT, {
+			const response = await fetch(config.api.equipment, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",

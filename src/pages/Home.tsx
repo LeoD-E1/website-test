@@ -1,17 +1,12 @@
 import React from "react";
-
-if (process.env.NODE_ENV === "production") {
-  require("dotenv").config();
-  console.log("Environ", process.env.NODE_ENV);
-}
+import config from "../config/config";
 
 const Home: React.FC = () => {
-
 	
 	const params = {
-		full_path: "https://192.168.4.162:5000/api/auth/authorize" || process.env.REACT_APP_OAUTH_SERVER_AUTHORIZE,
+		authorize_endpoint: config.oauth.authorize,
 		client_id: "4iWebsite",
-		redirect_uri: "http://192.168.4.162:3000/callback" || process.env.REACT_APP_REDIRECT_URI,
+		redirect_uri: config.oauth.redirect,
 		response_type: "code",
 		scope: "equipment",
 		state: "12345",
@@ -20,9 +15,9 @@ const Home: React.FC = () => {
 	const getLogin = async () => {
 		try {
 			const response = await fetch(
-				`${params.full_path}?client_id=${params.client_id}&scope=${params.scope}l&redirect_uri=${params.redirect_uri}&state=${params.state}&response_type=${params.response_type}`,
+				`${params.authorize_endpoint}?client_id=${params.client_id}&scope=${params.scope}l&redirect_uri=${params.redirect_uri}&state=${params.state}&response_type=${params.response_type}`,
 				{
-					//mode: "cors", // this mode is for hit an endpoint remotely ej. of localhost to 192.168.8.157
+					mode: "cors", // this mode is for hit an endpoint remotely ej. of localhost to 192.168.8.157
 					method: "GET",
 					headers: {
 						"Content-Type": "application/x-www-form-urlencoded",
