@@ -26,22 +26,17 @@ const Callback: React.FC = () => {
 
 	const getAccessToken = async () => {
 		try {
-			const response = await fetch(config.oauth.token, {
+      // state no se pasa, queda aca, por que?, no lo se
+			const response = await fetch(`${config.oauth.token}?grant_type=authorization_code&code=${params.code}&redirect_uri=&client_id=4iWebsite&redirect_uri=${config.oauth.redirect}`, {
 				method: "POST",
 				headers: {
-					"Content-Type": "application/json",
+					"Content-Type": "application/x-www-form-urlencoded",
+          charset: "utf-8",
 				},
-				body: JSON.stringify({
-					code: params.code,				
-					state: params.state,
-				}),
 			})
       // retorna el token
       const token = await response.json();
       return token;
-      // guardar token en localStorage
-      // 
-      // !isLoading && navigate("/equipment");
 		} catch (error) {
       console.log(error);
 		}

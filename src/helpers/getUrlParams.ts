@@ -1,10 +1,9 @@
 export interface IParams {
 	code: string;
-
 	state: string;
 }
 
-export function getUrlParams(url: any) {
+export function getUrlParams(url: string) {
 	url = url.substring(1);
 	let vars = url.split("&");
 	let pairs: IParams = {
